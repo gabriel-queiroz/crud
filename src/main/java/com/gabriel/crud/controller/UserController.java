@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> save(@RequestBody UserModel user) {
+    public ResponseEntity<UserModel> save(@Valid @RequestBody UserModel user) {
         UserModel newUser = this.userService.insert(user);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }

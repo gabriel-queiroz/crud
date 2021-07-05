@@ -1,6 +1,10 @@
 package com.gabriel.crud.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -14,14 +18,18 @@ public class UserModel {
     private Long id;
 
 
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String document;
+
 
     @Column(updatable = false, nullable = false)
     private Timestamp birthDate;
