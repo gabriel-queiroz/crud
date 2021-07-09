@@ -1,5 +1,8 @@
 package com.gabriel.crud.model;
 
+import com.gabriel.crud.dto.CreatorDataDTO;
+import com.gabriel.crud.dto.CreatorItemDTO;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +27,14 @@ public class CreatorModel {
     private String name;
     private String role;
     private String resourceURI;
+
+    public CreatorModel toCreator(CreatorItemDTO creatorItemDTO){
+        CreatorModel creator = new CreatorModel();
+        creator.setName(creatorItemDTO.getName());
+        creator.setResourceURI(creatorItemDTO.getResourceURI());
+        creator.setRole(creatorItemDTO.getRole());
+        return creator;
+    }
 
     public String getName() {
         return name;

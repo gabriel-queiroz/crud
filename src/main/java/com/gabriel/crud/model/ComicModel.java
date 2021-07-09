@@ -1,7 +1,10 @@
 package com.gabriel.crud.model;
 
+import com.gabriel.crud.dto.ComicItemDTO;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class ComicModel {
@@ -22,6 +25,20 @@ public class ComicModel {
 
     public ComicModel() {
 
+    }
+
+    public ComicModel toComicModel(ComicItemDTO comicItem){
+        ComicModel comic = new ComicModel();
+        comic.setCreators(comicItem.getCreators().getItems().stream().map(item -> {
+            CreatorModel creatorModel = new CreatorModel();
+            creatorModel.toCreator(item);
+            return creatorModel;
+        } ).collect(Collectors.toList()));
+        comic.setIsbn(comic.getIsbn());
+        comic.setDescription(comicItem.getDescription());
+        comic.setTitle(comicItem.getTitle());
+        comic.setPrice(comicItem.getPrices().get(1).getPrice());
+        return comic;
     }
 
     public String getTitle() {
