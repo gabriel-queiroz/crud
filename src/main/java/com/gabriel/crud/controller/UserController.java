@@ -21,7 +21,8 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getAll() {
-        return new ResponseEntity<>(this.userService.getUsers(), HttpStatus.OK);
+        this.userService.getComic();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping
