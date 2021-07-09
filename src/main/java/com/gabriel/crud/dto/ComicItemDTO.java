@@ -15,8 +15,8 @@ public class ComicItemDTO {
     private String description;
     private String isbn;
 
-    @JsonDeserialize(contentAs = Price.class)
-    private ArrayList<Price> prices;
+    @JsonDeserialize(contentAs = PriceDTO.class)
+    private ArrayList<PriceDTO> prices;
 
     private CreatorDataDTO creators;
 
@@ -36,11 +36,11 @@ public class ComicItemDTO {
 
 
 
-    public ArrayList<Price> getPrices() {
+    public ArrayList<PriceDTO> getPrices() {
         return prices;
     }
 
-    public void setPrices(ArrayList<Price> prices) {
+    public void setPrices(ArrayList<PriceDTO> prices) {
         this.prices = prices;
     }
 

@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 
-public class Price {
+public class PriceDTO {
 
 
     private Double price;
@@ -17,6 +17,7 @@ public class Price {
     @Column(updatable = false, nullable = false)
     private Long id;
 
+
     public Long getId() {
         return id;
     }
@@ -25,7 +26,7 @@ public class Price {
         this.id = id;
     }
 
-    public Price() {
+    public PriceDTO() {
     }
 
     public Double getPrice() {
@@ -48,7 +49,7 @@ public class Price {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Price price1 = (Price) o;
+        PriceDTO price1 = (PriceDTO) o;
         return Objects.equals(price, price1.price) && Objects.equals(type, price1.type);
     }
 
