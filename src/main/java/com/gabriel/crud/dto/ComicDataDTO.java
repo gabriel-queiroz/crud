@@ -25,7 +25,7 @@ public class ComicDataDTO {
         this.id = id;
     }
 
-    @JsonDeserialize(contentAs= ComicItemDTO.class)
+    @JsonDeserialize(contentAs = ComicItemDTO.class)
     private ArrayList<ComicItemDTO> results;
     private Integer offset;
 

@@ -1,7 +1,6 @@
 package com.gabriel.crud.controller;
 
 import com.gabriel.crud.model.UserModel;
-import com.gabriel.crud.service.UserService;
 import com.gabriel.crud.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

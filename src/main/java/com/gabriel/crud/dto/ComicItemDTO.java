@@ -34,8 +34,6 @@ public class ComicItemDTO {
     private Long id;
 
 
-
-
     public ArrayList<PriceDTO> getPrices() {
         return prices;
     }

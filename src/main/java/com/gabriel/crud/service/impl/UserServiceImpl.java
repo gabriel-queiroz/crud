@@ -1,11 +1,9 @@
 package com.gabriel.crud.service.impl;
 
 import com.gabriel.crud.http.ComicHttp;
-import com.gabriel.crud.dto.ComicResultDTO;
 import com.gabriel.crud.model.UserModel;
 import com.gabriel.crud.repository.UserRepository;
 import com.gabriel.crud.service.UserService;
-import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
