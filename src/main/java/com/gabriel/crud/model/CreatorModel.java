@@ -29,7 +29,6 @@ public class CreatorModel {
     private String resourceURI;
 
     public void toCreator(CreatorItemDTO creatorItemDTO){
-        CreatorModel creator = new CreatorModel();
         this.setName(creatorItemDTO.getName());
         this.setResourceURI(creatorItemDTO.getResourceURI());
         this.setRole(creatorItemDTO.getRole());

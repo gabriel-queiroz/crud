@@ -30,7 +30,7 @@ public class ComicServiceImpl implements ComicService {
                 System.out.println(comic.get().getData().getResults().get(0).getPrices().get(0).getPrice());
                 ComicModel comicModel = new ComicModel();
                 comicModel.toComicModel(comic.get().getData().getResults().get(0));
-                return comicModel;
+                return this.comicRepository.save(comicModel);
             }
         } catch (FeignException e) {
             System.out.println(e.getMessage());

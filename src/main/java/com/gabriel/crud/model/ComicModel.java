@@ -14,12 +14,20 @@ public class ComicModel {
     @Column(updatable = false, nullable = false)
     private Long id;
 
+    @Column
     private String title;
+
+    @Column(length = 500)
     private String description;
+    @Column
     private String isbn;
+
+    @Column
     private double price;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CreatorModel> creators;
+
     @OneToOne
     private UserModel user;
 
@@ -27,12 +35,12 @@ public class ComicModel {
 
     }
 
-    public void toComicModel(ComicItemDTO comicItem){
+    public void toComicModel(ComicItemDTO comicItem) {
         this.setCreators(comicItem.getCreators().getItems().stream().map(item -> {
             CreatorModel creatorModel = new CreatorModel();
             creatorModel.toCreator(item);
             return creatorModel;
-        } ).collect(Collectors.toList()));
+        }).collect(Collectors.toList()));
         this.setIsbn(comicItem.getIsbn());
         this.setDescription(comicItem.getDescription());
         this.setTitle(comicItem.getTitle());
@@ -95,7 +103,6 @@ public class ComicModel {
         this.price = price;
         this.creators = creators;
     }
-
 
 
 }
