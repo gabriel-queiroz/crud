@@ -3,6 +3,7 @@ package com.gabriel.crud.model;
 import com.gabriel.crud.dto.ComicItemDTO;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,9 @@ public class ComicModel {
     @Enumerated(EnumType.ORDINAL)
     private WeekDay discountDay;
 
+    @Transient
+    private boolean discountActive;
+
     public ComicModel() {
         this.setDiscountDay(WeekDay.FRIDAY);
     }
@@ -44,6 +48,23 @@ public class ComicModel {
 
     public void setDiscountDay(WeekDay discountDay) {
         this.discountDay = discountDay;
+    }
+
+    public boolean isDiscountActive() {
+        return discountActive;
+    }
+
+    public void setDiscountActive(boolean discountActive) {
+        this.discountActive = discountActive;
+    }
+
+    @PostPersist
+    private void calculateDiscount(){
+        LocalDate date = LocalDate.now();
+        this.discountActive = date.getDayOfWeek().toString().equals(this.discountDay.toString());
+        if (this.discountActive){
+            this.price = this.price - this.price * 10 /100;
+        }
     }
 
     public void toComicModel(ComicItemDTO comicItem) {
@@ -91,7 +112,6 @@ public class ComicModel {
     private void selectDiscountDay(String isbn) {
         WeekDay selectedDay;
         int lastNumberIsbn = Integer.parseInt(isbn.substring(isbn.length() - 1));
-        System.out.println(lastNumberIsbn);
         this.isbn = isbn;
         switch (lastNumberIsbn) {
             case 0:
