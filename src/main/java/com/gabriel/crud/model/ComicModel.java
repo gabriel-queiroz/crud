@@ -28,12 +28,22 @@ public class ComicModel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<CreatorModel> creators;
 
-
     @OneToOne
     private UserModel user;
 
-    public ComicModel() {
+    @Enumerated(EnumType.ORDINAL)
+    private WeekDay discountDay;
 
+    public ComicModel() {
+        this.setDiscountDay(WeekDay.FRIDAY);
+    }
+
+    public WeekDay getDiscountDay() {
+        return discountDay;
+    }
+
+    public void setDiscountDay(WeekDay discountDay) {
+        this.discountDay = discountDay;
     }
 
     public void toComicModel(ComicItemDTO comicItem) {
@@ -46,6 +56,7 @@ public class ComicModel {
         this.setDescription(comicItem.getDescription());
         this.setTitle(comicItem.getTitle());
         this.setPrice(comicItem.getPrices().get(0).getPrice());
+        this.selectDiscountDay(comicItem.getIsbn());
     }
 
     public UserModel getUser() {
@@ -77,9 +88,43 @@ public class ComicModel {
         return isbn;
     }
 
+    private void selectDiscountDay(String isbn) {
+        WeekDay selectedDay;
+        int lastNumberIsbn = Integer.parseInt(isbn.substring(isbn.length() - 1));
+        System.out.println(lastNumberIsbn);
+        this.isbn = isbn;
+        switch (lastNumberIsbn) {
+            case 0:
+            case 1: {
+                selectedDay = WeekDay.MONDAY;
+                break;
+            }
+            case 2:
+            case 3: {
+                selectedDay = WeekDay.TUESDAY;
+                break;
+            }
+            case 4:
+            case 5: {
+                selectedDay = WeekDay.WEDNESDAY;
+                break;
+            }
+            case 6:
+            case 7: {
+                selectedDay = WeekDay.THURSDAY;
+                break;
+            }
+            default:
+                selectedDay = WeekDay.FRIDAY;
+                break;
+        }
+        this.setDiscountDay(selectedDay);
+    }
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
 
     public double getPrice() {
         return price;
