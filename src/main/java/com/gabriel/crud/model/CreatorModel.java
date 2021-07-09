@@ -28,12 +28,11 @@ public class CreatorModel {
     private String role;
     private String resourceURI;
 
-    public CreatorModel toCreator(CreatorItemDTO creatorItemDTO){
+    public void toCreator(CreatorItemDTO creatorItemDTO){
         CreatorModel creator = new CreatorModel();
-        creator.setName(creatorItemDTO.getName());
-        creator.setResourceURI(creatorItemDTO.getResourceURI());
-        creator.setRole(creatorItemDTO.getRole());
-        return creator;
+        this.setName(creatorItemDTO.getName());
+        this.setResourceURI(creatorItemDTO.getResourceURI());
+        this.setRole(creatorItemDTO.getRole());
     }
 
     public String getName() {

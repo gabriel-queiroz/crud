@@ -41,28 +41,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long id, UserModel user) {
-        UserModel userFromDb = this.userRepository.findById(id).get();
-        userFromDb.setBirthDate(user.getBirthDate());
-        userFromDb.setDocument(user.getDocument());
-        userFromDb.setName(user.getName());
-        userFromDb.setEmail(user.getEmail());
-        this.userRepository.save(userFromDb);
+    public boolean updateUser(Long id, UserModel user) {
+        Optional<UserModel> userModelOptional = this.userRepository.findById(id);
+        if (userModelOptional.isPresent()) {
+            UserModel userFromDb = userModelOptional.get();
+            userFromDb.setBirthDate(user.getBirthDate());
+            userFromDb.setDocument(user.getDocument());
+            userFromDb.setName(user.getName());
+            userFromDb.setEmail(user.getEmail());
+            this.userRepository.save(userFromDb);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void deleteUser(Long userId) {
         this.userRepository.deleteById(userId);
-    }
-
-    public void getComic() {
-        try {
-            Optional<ComicResultDTO> comic = Optional.ofNullable(this.comicHttp.getComicItemDetails());
-            if(comic.isPresent()){
-                System.out.println(comic.get().getData().getResults().get(0).getPrices().get(0).getPrice());
-            }
-        } catch (FeignException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }

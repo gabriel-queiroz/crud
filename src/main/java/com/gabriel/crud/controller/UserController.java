@@ -21,8 +21,8 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getAll() {
-        this.userService.getComic();
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<UserModel> users = this.userService.getUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping
@@ -33,13 +33,16 @@ public class UserController {
 
     @PutMapping({"/{userId}"})
     public ResponseEntity<UserModel> update(@PathVariable("userId") Long userId, @RequestBody UserModel user) {
-        this.userService.updateUser(userId, user);
-        UserModel userUpdated = this.userService.getUserById(userId);
-        return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+        if (this.userService.updateUser(userId, user)) {
+            UserModel userUpdated = this.userService.getUserById(userId);
+            return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
     @DeleteMapping({"/{userId}"})
-    public ResponseEntity<UserModel> delete(@PathVariable("userId")Long userId){
+    public ResponseEntity<UserModel> delete(@PathVariable("userId") Long userId) {
         this.userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

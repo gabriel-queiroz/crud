@@ -27,18 +27,16 @@ public class ComicModel {
 
     }
 
-    public ComicModel toComicModel(ComicItemDTO comicItem){
-        ComicModel comic = new ComicModel();
-        comic.setCreators(comicItem.getCreators().getItems().stream().map(item -> {
+    public void toComicModel(ComicItemDTO comicItem){
+        this.setCreators(comicItem.getCreators().getItems().stream().map(item -> {
             CreatorModel creatorModel = new CreatorModel();
             creatorModel.toCreator(item);
             return creatorModel;
         } ).collect(Collectors.toList()));
-        comic.setIsbn(comic.getIsbn());
-        comic.setDescription(comicItem.getDescription());
-        comic.setTitle(comicItem.getTitle());
-        comic.setPrice(comicItem.getPrices().get(1).getPrice());
-        return comic;
+        this.setIsbn(comicItem.getIsbn());
+        this.setDescription(comicItem.getDescription());
+        this.setTitle(comicItem.getTitle());
+        this.setPrice(comicItem.getPrices().get(0).getPrice());
     }
 
     public String getTitle() {
