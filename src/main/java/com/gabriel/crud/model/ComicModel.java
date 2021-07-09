@@ -28,6 +28,7 @@ public class ComicModel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<CreatorModel> creators;
 
+
     @OneToOne
     private UserModel user;
 
@@ -46,6 +47,15 @@ public class ComicModel {
         this.setTitle(comicItem.getTitle());
         this.setPrice(comicItem.getPrices().get(0).getPrice());
     }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
 
     public String getTitle() {
         return title;

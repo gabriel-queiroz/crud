@@ -7,6 +7,7 @@ import com.gabriel.crud.model.ComicModel;
 import com.gabriel.crud.model.UserModel;
 import com.gabriel.crud.repository.ComicRepository;
 import com.gabriel.crud.service.ComicService;
+import com.gabriel.crud.service.UserService;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,19 @@ public class ComicServiceImpl implements ComicService {
     @Autowired
     private ComicHttp comicHttp;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public ComicModel save(CreateComicDTO createComicDTO) {
         try {
+            Optional<UserModel> user = Optional.ofNullable(this.userService.getUserById(createComicDTO.getUserId()));
             Optional<ComicResultDTO> comic = Optional.ofNullable(this.comicHttp.getComicItemDetails(createComicDTO.getComicId()));
-            if (comic.isPresent()) {
+            if (comic.isPresent() && user.isPresent()) {
                 System.out.println(comic.get().getData().getResults().get(0).getPrices().get(0).getPrice());
                 ComicModel comicModel = new ComicModel();
                 comicModel.toComicModel(comic.get().getData().getResults().get(0));
+                comicModel.setUser(user.get());
                 return this.comicRepository.save(comicModel);
             }
         } catch (FeignException e) {
