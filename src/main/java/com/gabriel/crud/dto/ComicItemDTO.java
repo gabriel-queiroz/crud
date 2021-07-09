@@ -1,20 +1,40 @@
-package com.gabriel.crud.model;
+package com.gabriel.crud.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ComicItem {
+public class ComicItemDTO {
+
+
     private String title;
     private String description;
     private String isbn;
 
-
     @JsonDeserialize(contentAs = Price.class)
     private ArrayList<Price> prices;
 
-    private CreatorData creators;
+    private CreatorDataDTO creators;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue
+    @Column(updatable = false, nullable = false)
+    private Long id;
+
+
+
 
     public ArrayList<Price> getPrices() {
         return prices;
@@ -24,21 +44,21 @@ public class ComicItem {
         this.prices = prices;
     }
 
-    public CreatorData getCreators() {
+    public CreatorDataDTO getCreators() {
         return creators;
     }
 
-    public void setCreators(CreatorData creators) {
+    public void setCreators(CreatorDataDTO creators) {
         this.creators = creators;
     }
 
-    public ComicItem(String title, String description, String isbn) {
+    public ComicItemDTO(String title, String description, String isbn) {
         this.title = title;
         this.description = description;
         this.isbn = isbn;
     }
 
-    public ComicItem() {
+    public ComicItemDTO() {
 
     }
 
@@ -55,8 +75,8 @@ public class ComicItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ComicItem comicItem = (ComicItem) o;
-        return Objects.equals(title, comicItem.title) && Objects.equals(description, comicItem.description) && Objects.equals(isbn, comicItem.isbn);
+        ComicItemDTO comicItemDTO = (ComicItemDTO) o;
+        return Objects.equals(title, comicItemDTO.title) && Objects.equals(description, comicItemDTO.description) && Objects.equals(isbn, comicItemDTO.isbn);
     }
 
     @Override

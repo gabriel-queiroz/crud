@@ -1,8 +1,11 @@
-package com.gabriel.crud.model;
+package com.gabriel.crud.dto;
 
-public class ComicResult {
-    private ComicData data;
+public class ComicResultDTO {
+
+
+    private ComicDataDTO data;
     private Integer code;
+
 
     public Integer getCode() {
         return code;
@@ -12,11 +15,11 @@ public class ComicResult {
         this.code = code;
     }
 
-    public ComicResult(ComicData data) {
+    public ComicResultDTO(ComicDataDTO data) {
         this.data = data;
     }
 
-    public ComicResult() {
+    public ComicResultDTO() {
     }
 
     @Override
@@ -26,11 +29,11 @@ public class ComicResult {
                 '}';
     }
 
-    public ComicData getData() {
+    public ComicDataDTO getData() {
         return data;
     }
 
-    public void setData(ComicData data) {
+    public void setData(ComicDataDTO data) {
         this.data = data;
     }
 }

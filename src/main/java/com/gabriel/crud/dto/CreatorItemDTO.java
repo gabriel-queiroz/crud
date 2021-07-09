@@ -1,14 +1,15 @@
-package com.gabriel.crud.model;
+package com.gabriel.crud.dto;
 
 import java.util.Objects;
 
-public class CreatorItem {
+public class CreatorItemDTO {
+
+
     private String name;
     private String role;
     private String resourceURI;
 
-
-    public CreatorItem() {
+    public CreatorItemDTO() {
     }
 
 
@@ -40,7 +41,7 @@ public class CreatorItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreatorItem creator = (CreatorItem) o;
+        CreatorItemDTO creator = (CreatorItemDTO) o;
         return Objects.equals(name, creator.name) && Objects.equals(role, creator.role) && Objects.equals(resourceURI, creator.resourceURI);
     }
 
