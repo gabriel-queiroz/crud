@@ -34,6 +34,11 @@ public class UserModel {
     @Column(updatable = false, nullable = false)
     private Timestamp birthDate;
 
+
+    public UserModel() {
+
+    }
+
     public Long getId() {
         return id;
     }

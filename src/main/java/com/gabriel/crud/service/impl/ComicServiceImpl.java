@@ -4,12 +4,15 @@ import com.gabriel.crud.dto.ComicResultDTO;
 import com.gabriel.crud.dto.CreateComicDTO;
 import com.gabriel.crud.http.ComicHttp;
 import com.gabriel.crud.model.ComicModel;
+import com.gabriel.crud.model.UserModel;
 import com.gabriel.crud.repository.ComicRepository;
 import com.gabriel.crud.service.ComicService;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +39,12 @@ public class ComicServiceImpl implements ComicService {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public List<ComicModel> getComics() {
+        List<ComicModel> users = new ArrayList<>();
+        this.comicRepository.findAll().forEach(users::add);
+        return users;
     }
 }

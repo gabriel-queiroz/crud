@@ -16,6 +16,10 @@ public class CreatorModel {
     @Column(updatable = false, nullable = false)
     private Long id;
 
+    public CreatorModel() {
+
+    }
+
     public Long getId() {
         return id;
     }
