@@ -1,8 +1,6 @@
 package com.gabriel.crud.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
 import java.util.Objects;
 
 
@@ -12,19 +10,6 @@ public class PriceDTO {
     private Double price;
     private String type;
 
-    @Id
-    @GeneratedValue
-    @Column(updatable = false, nullable = false)
-    private Long id;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public PriceDTO() {
     }

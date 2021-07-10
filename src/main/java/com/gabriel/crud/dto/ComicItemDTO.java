@@ -10,7 +10,6 @@ import java.util.Objects;
 
 public class ComicItemDTO {
 
-
     private String title;
     private String description;
     private String isbn;
