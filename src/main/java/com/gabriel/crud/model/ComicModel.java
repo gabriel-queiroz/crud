@@ -27,6 +27,7 @@ public class ComicModel {
     private double price;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "comic_id")
     private List<CreatorModel> creators;
 
     @OneToOne
@@ -58,6 +59,7 @@ public class ComicModel {
         this.discountActive = discountActive;
     }
 
+    @PostLoad
     @PostPersist
     private void calculateDiscount(){
         LocalDate date = LocalDate.now();

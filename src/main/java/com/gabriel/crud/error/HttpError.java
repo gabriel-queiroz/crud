@@ -1,5 +1,6 @@
 package com.gabriel.crud.error;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
@@ -10,7 +11,9 @@ import java.util.Objects;
 public class HttpError {
     private Date timestamp;
     private HttpStatus httpStatus;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String message;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<String, String> errors;
 
     @Override
