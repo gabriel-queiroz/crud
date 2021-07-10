@@ -13,10 +13,7 @@ import java.time.LocalDate;
 public class CrudApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(CrudApplication.class, args);
-		LocalDate date = LocalDate.now();
-		System.out.println(date.getDayOfWeek().equals(DayOfWeek.FRIDAY));
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.gabriel.crud.service.impl;
 
+import com.gabriel.crud.exception.UserNotFoundException;
 import com.gabriel.crud.http.ComicHttp;
 import com.gabriel.crud.model.UserModel;
 import com.gabriel.crud.repository.UserRepository;
@@ -30,7 +31,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel getUserById(Long id) {
-        return this.userRepository.findById(id).get();
+      Optional<UserModel> user =  this.userRepository.findById(id);
+       if(user.isEmpty()){
+           throw new UserNotFoundException(id);
+       }
+      return user.get();
     }
 
     @Override
@@ -41,16 +46,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(Long id, UserModel user) {
         Optional<UserModel> userModelOptional = this.userRepository.findById(id);
-        if (userModelOptional.isPresent()) {
-            UserModel userFromDb = userModelOptional.get();
-            userFromDb.setBirthDate(user.getBirthDate());
-            userFromDb.setDocument(user.getDocument());
-            userFromDb.setName(user.getName());
-            userFromDb.setEmail(user.getEmail());
-            this.userRepository.save(userFromDb);
-            return true;
+        if (userModelOptional.isEmpty()) {
+            throw new UserNotFoundException(id);
         }
-        return false;
+        UserModel userFromDb = userModelOptional.get();
+        userFromDb.setBirthDate(user.getBirthDate());
+        userFromDb.setDocument(user.getDocument());
+        userFromDb.setName(user.getName());
+        userFromDb.setEmail(user.getEmail());
+        this.userRepository.save(userFromDb);
+        return true;
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.gabriel.crud.service.impl;
 
 import com.gabriel.crud.dto.ComicResultDTO;
 import com.gabriel.crud.dto.CreateComicDTO;
+import com.gabriel.crud.exception.ComicNotFoundException;
 import com.gabriel.crud.http.ComicHttp;
 import com.gabriel.crud.model.ComicModel;
 import com.gabriel.crud.model.UserModel;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletionException;
 
 @Service
 public class ComicServiceImpl implements ComicService {
@@ -32,19 +34,19 @@ public class ComicServiceImpl implements ComicService {
     @Override
     public ComicModel save(CreateComicDTO createComicDTO) {
         try {
-            Optional<UserModel> user = Optional.ofNullable(this.userService.getUserById(createComicDTO.getUserId()));
+            UserModel user = this.userService.getUserById(createComicDTO.getUserId());
             Optional<ComicResultDTO> comic = Optional.ofNullable(this.comicHttp.getComicItemDetails(createComicDTO.getComicId()));
-            if (comic.isPresent() && user.isPresent()) {
-                System.out.println(comic.get().getData().getResults().get(0).getPrices().get(0).getPrice());
-                ComicModel comicModel = new ComicModel();
-                comicModel.toComicModel(comic.get().getData().getResults().get(0));
-                comicModel.setUser(user.get());
-                return this.comicRepository.save(comicModel);
+            if (comic.isEmpty()) {
+                throw new ComicNotFoundException(createComicDTO.getComicId());
             }
+            ComicModel comicModel = new ComicModel();
+            comicModel.toComicModel(comic.get().getData().getResults().get(0));
+            comicModel.setUser(user);
+            return this.comicRepository.save(comicModel);
+
         } catch (FeignException e) {
-            System.out.println(e.getMessage());
+            throw new ComicNotFoundException(createComicDTO.getComicId());
         }
-        return null;
     }
 
     @Override
