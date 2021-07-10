@@ -8,4 +8,5 @@ import java.util.List;
 public interface ComicService {
     ComicModel save(CreateComicDTO comic);
     List<ComicModel> getComics();
+    ComicModel getById(Long id);
 }

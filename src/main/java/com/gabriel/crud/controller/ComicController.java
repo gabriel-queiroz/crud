@@ -30,4 +30,9 @@ public class ComicController {
         List<ComicModel> comicModels = this.comicService.getComics();
         return new ResponseEntity<>(comicModels, HttpStatus.OK);
     }
+
+    @GetMapping({"/{comicId}"})
+    public ResponseEntity<ComicModel> getById(@PathVariable("comicId") Long id) {
+        return new ResponseEntity<>(this.comicService.getById(id), HttpStatus.OK);
+    }
 }

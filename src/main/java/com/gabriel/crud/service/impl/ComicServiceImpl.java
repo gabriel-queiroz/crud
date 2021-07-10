@@ -9,6 +9,7 @@ import com.gabriel.crud.model.UserModel;
 import com.gabriel.crud.repository.ComicRepository;
 import com.gabriel.crud.service.ComicService;
 import com.gabriel.crud.service.UserService;
+import com.sun.istack.Nullable;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,14 @@ public class ComicServiceImpl implements ComicService {
         List<ComicModel> users = new ArrayList<>();
         this.comicRepository.findAll().forEach(users::add);
         return users;
+    }
+
+    @Override
+    public ComicModel getById(Long id) {
+       Optional<ComicModel> comic = Optional.ofNullable(this.comicRepository.getById(id));
+       if(comic.isEmpty()){
+           throw new ComicNotFoundException(id);
+       }
+       return comic.get();
     }
 }
